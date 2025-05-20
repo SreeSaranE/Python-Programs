@@ -40,7 +40,7 @@ while password != user_password:
                 repeat+=1
             if i==j:
                 password = password+j
-                print(password)
+                #print(password)
 
 end_time = time.time()
 total_time = "{:.3f}".format(end_time - start_time)
