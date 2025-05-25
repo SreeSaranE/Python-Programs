@@ -4,6 +4,8 @@ class app:
     def __init__(self):
         self.window = ctk.CTk()
         self.window.title("Calculator")
+        self.window._set_appearance_mode("System")
+        self.window.iconbitmap("udemy\calculator-icon_34473.ico")
         self.window.geometry('380x300')
         self.window.resizable(False, False)
 
@@ -24,22 +26,26 @@ class app:
         self.results_entry = ctk.CTkEntry(self.window)
         self.results_entry.grid(row=2, column=1, **self.padding)
 
-        self.cal_add = ctk.CTkButton(self.window, text='+', command=self.callculate_add)
+        self.cal_add = ctk.CTkButton(self.window, text='+', width= 100, corner_radius=50 ,
+                                     command=self.callculate_add)
         self.cal_add.grid(row=3, column=0, **self.padding)
 
-        self.cal_add = ctk.CTkButton(self.window, text='-', command=self.callculate_sub)
+        self.cal_add = ctk.CTkButton(self.window, text='-', width= 100, corner_radius=50 ,
+                                     command=self.callculate_sub)
         self.cal_add.grid(row=3, column=1, **self.padding)
 
-        self.cal_add = ctk.CTkButton(self.window, text='*', command=self.callculate_mul)
+        self.cal_add = ctk.CTkButton(self.window, text='*', width= 100, corner_radius=50 ,
+                                     command=self.callculate_mul)
         self.cal_add.grid(row=4, column=0, **self.padding)
 
-        self.cal_add = ctk.CTkButton(self.window, text='/', command=self.callculate_div)
+        self.cal_add = ctk.CTkButton(self.window, text='/', width= 100, corner_radius=50 ,
+                                     command=self.callculate_div)
         self.cal_add.grid(row=4, column=1, **self.padding)
 
-        self.reset_val = ctk.CTkButton(self.window, text='Reset', command=self.reset_all)
+        self.reset_val = ctk.CTkButton(self.window, text='Reset', width= 100, corner_radius=50 ,
+                                       command=self.reset_all)
         self.reset_val.grid(row=5, column=0, **self.padding)
         
-
     def reset(self, text: str):
         self.results_entry.delete(0,ctk.END)
         self.results_entry.insert(0, text)
@@ -88,7 +94,6 @@ class app:
         except ValueError:
             self.reset("Invalid Input")
             
-
     def run(self):
         self.window.mainloop()
 
