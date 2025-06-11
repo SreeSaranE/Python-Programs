@@ -3,7 +3,7 @@ from difflib import get_close_matches
 
 def best_matches(user_questions: str, question) -> str | None:
     questions: list[str] = [word for word in question]
-    matches: list = get_close_matches(user_questions, questions, n=1, cutoff=0.6)
+    matches: list = get_close_matches(user_questions, questions, n=1, cutoff=0.4)
 
     if matches:
         return matches
@@ -12,16 +12,15 @@ def chat_bot(knowledge):
     while True:
         user_input: str = input("You: ")
         best_match: str | None = best_matches(user_input, knowledge)
-        join = '_'.join(best_match)
-
-        print(best_match)
-        print(join)
-
-        if join == 'bye':
-            break
+        if  best_match == None:
+            join = None
+        else:
+            join = '_'.join(best_match)
 
         if answer := knowledge.get(join):
             print(f"Bot: {answer}" )
+            if answer == 'bye':
+                break
         else:
             print("Bot: I don't understand")
 
