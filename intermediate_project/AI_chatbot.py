@@ -24,21 +24,19 @@ class ai_chatbot:
                                    ,font=("Arial", 15))
         self.header.pack(pady=10)
 
-        self.chats = ctk.CTkLabel(master=self.middle_frame, text_color='white',
-                                  fg_color='#24252B',
-                                  text="Chat History",
+        self.chats = ctk.CTkLabel(master=self.middle_frame,
+                                  text=" Chat History",
                                   width=260, height=300,
                                   justify="left", anchor="sw"
                                   )
         self.chats.pack(pady=10)
         
-        self.user_input = ctk.CTkEntry(master=self.bottom_frame, text_color='black',
+        self.user_input = ctk.CTkEntry(master=self.bottom_frame,
                                       placeholder_text="ask me",
-                                      fg_color="#CFCFCF",
-                                      placeholder_text_color='black',
                                       corner_radius=50,
                                       width=290, height=28,
-                                      justify="right"
+                                      justify="right",
+                                      font=("Arial", 15)
                                       )
         self.user_input.pack(side=ctk.LEFT, pady=10, padx= 10)
 
@@ -49,6 +47,8 @@ class ai_chatbot:
                                          width=15, height=27,
                                          command= self.aiBot)
         self.send_button.pack(side=ctk.RIGHT, pady=10, padx= 5)
+        self.window.bind('<Return>', lambda event: self.send_button.invoke())
+        
 
     def best_matches(self, user_questions: str, question) -> str | None:
         questions: list[str] = [word for word in question]
@@ -58,28 +58,29 @@ class ai_chatbot:
             return matches
 
     def aiBot(self):
-     #   while True:
-            self.load_user_input = self.user_input.get()
-            best_match: str | None = self.best_matches(self.load_user_input, self.data)
-            if  best_match == None:
-                join = None
-            else:
-                join = '_'.join(best_match)
+        self.load_user_input = self.user_input.get()
+        self.user_input.delete(0,ctk.END)
+        best_match: str | None = self.best_matches(self.load_user_input, self.data)
+        if  best_match == None:
+            join = None
+        else:
+            join = '_'.join(best_match)
 
-            if answer := self.data.get(join):
-                self.chat_history.append(f"you: {self.load_user_input}")
-                self.chat_history.append(f"Bot: {answer}\n")
-            #    for i in self.chat_history:
-            #        print(i)
-                print(self.chat_history)
-                self.print_chat_history= '\n'.join(self.chat_history)
-                self.chats.configure(text = self.print_chat_history)
-                if answer == 'bye':
-                    pass
-      #              break
+        if answer := self.data.get(join):
+            self.chat_history.append(f" you: {self.load_user_input}")
+            self.chat_history.append(f" Bot: {answer}\n")
+        #    print(self.chat_history)
+            self.print_chat_history= '\n'.join(self.chat_history)
+            self.chats.configure(text = self.print_chat_history)
+            if answer == 'bye':
+                pass
 
-            else:
-                print("Bot: I don't understand")
+        else:
+            self.chat_history.append(f" you: {self.load_user_input}")
+            self.chat_history.append(f" Bot: I don't understand\n")
+        #    print(self.chat_history)
+            self.print_chat_history= '\n'.join(self.chat_history)
+            self.chats.configure(text = self.print_chat_history)
 
     def run(self):
         with open('udemy\data.json', 'r') as file:
@@ -87,6 +88,7 @@ class ai_chatbot:
         self.show()
         self.button()
         self.window.mainloop()
+        
 
 if __name__ == '__main__':
     app = ai_chatbot()
