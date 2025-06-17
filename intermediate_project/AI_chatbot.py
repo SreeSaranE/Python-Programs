@@ -9,27 +9,32 @@ class ai_chatbot:
         self.window.title("MyAI")
         self.window._set_appearance_mode("System")
         self.window.geometry('400x350')
-        self.window.resizable(False,False)
+    #    self.window.resizable(False,False)
+        self.screen_width = self.window.winfo_screenwidth()
+        self.screen_height = self.window.winfo_screenheight()
         self.chat_history = []
 
     def show(self):
         self.bottom_frame = ctk.CTkFrame(master=self.window)
         self.bottom_frame.pack(side=tk.BOTTOM, fill=tk.X, padx=10, pady=10)
         self.middle_frame = ctk.CTkFrame(master=self.window)
-        self.middle_frame.pack(side=tk.RIGHT, fill=tk.X, padx=10, pady=10)
+        self.middle_frame.pack(side=tk.RIGHT, fill=tk.BOTH, expand=True, padx=10, pady=10)
 
+        self.chat_width_per = 0.2 * self.screen_width
+                # Header at 30% of screen width
         self.header = ctk.CTkLabel(self.window,
                                    text="AI ChatBot\n\nHistory",
-                                   width=60, height=10
-                                   ,font=("Arial", 15))
-        self.header.pack(pady=10)
+                                   font=("Arial", 15),
+                                   anchor="center")
+        self.header.pack(pady = 10, padx = 20)
+    #    self.header.place(relx=0.2, rely=0.05, relwidth=0.2)
 
+        # Chat area at 70% of screen width
         self.chats = ctk.CTkLabel(master=self.middle_frame,
                                   text=" Chat History",
-                                  width=260, height=300,
-                                  justify="left", anchor="sw"
-                                  )
-        self.chats.pack(pady=10)
+                                  justify="left",
+                                  anchor="sw")
+        self.chats.pack(fill="both", expand=True, pady=10)
         
         self.user_input = ctk.CTkEntry(master=self.bottom_frame,
                                       placeholder_text="ask me",
@@ -38,17 +43,16 @@ class ai_chatbot:
                                       justify="right",
                                       font=("Arial", 15)
                                       )
-        self.user_input.pack(side=ctk.LEFT, pady=10, padx= 10)
+        self.user_input.pack(side=ctk.LEFT, fill="x", expand=True, padx=10, pady=10)
 
     def button(self):
         self.send_button = ctk.CTkButton(master=self.bottom_frame,
-                                         text="Send",
+                                          text="Send",
                                          corner_radius=50,
                                          width=15, height=27,
                                          command= self.aiBot)
         self.send_button.pack(side=ctk.RIGHT, pady=10, padx= 5)
-        self.window.bind('<Return>', lambda event: self.send_button.invoke())
-        
+        self.window.bind('<Return>', lambda event: self.send_button.invoke()) 
 
     def best_matches(self, user_questions: str, question) -> str | None:
         questions: list[str] = [word for word in question]
@@ -83,13 +87,12 @@ class ai_chatbot:
             self.chats.configure(text = self.print_chat_history)
 
     def run(self):
-        with open('udemy\data.json', 'r') as file:
+        with open('udemy/Uploaded/data.json', 'r') as file:
             self.data = json.load(file)
         self.show()
         self.button()
         self.window.mainloop()
         
-
 if __name__ == '__main__':
     app = ai_chatbot()
     app.run()
