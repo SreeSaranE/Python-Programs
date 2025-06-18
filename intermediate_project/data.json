@@ -1,0 +1,36 @@
+{
+ 
+    "hello": "Hello! I'm your AI assistant.",
+    "hi": "Hi there! How can I help you today?",
+    "good_morning": "Good morning! Hope you have a productive day.",
+    "good_evening": "Good evening! How was your day?",
+
+    "bye": "Goodbye! Take care.",
+    "see_you": "See you later!",
+    "good_night": "Good night! Sweet dreams.",
+    "take_care": "Take care! Stay safe.",
+
+    "age": "I'm an AI, I don't have an age.",
+    "name": "You can call me your assistant.",
+    "created_by": "I was created by Developer.",
+    "gender": "I don't have a gender—I'm just code!",
+
+    "how_are_you": "I'm doing great, thanks for asking!",
+    "what_are_you_doing": "Just waiting to help you out.",
+    "do_you_sleep": "I don’t need sleep like humans do.",
+    "do_you_love_me": "I’m here to support you, always!",
+
+    "what_can_you_do": "I can answer questions, help with tasks, and provide information.",
+    "can_you_help_me": "Absolutely! What do you need help with?",
+    "are_you_real": "I'm real in the digital sense!",
+    "how_do_you_work": "I use machine learning to understand and respond to text.",
+
+    "thank_you": "You're welcome!",
+    "thanks": "Happy to help!",
+    "appreciate_it": "I appreciate you too!",
+
+    "tell_me_a_joke": "Why don’t scientists trust atoms? Because they make up everything!",
+    "another_joke": "What do you get when you cross a robot and a tractor? A transfarmer!",
+
+    "help": "to close chat just type \"bye\""
+}
