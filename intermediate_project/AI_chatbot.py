@@ -9,7 +9,6 @@ class ai_chatbot:
         self.window.title("MyAI")
         self.window._set_appearance_mode("System")
         self.window.geometry('400x350')
-    #    self.window.resizable(False,False)
         self.screen_width = self.window.winfo_screenwidth()
         self.screen_height = self.window.winfo_screenheight()
         self.chat_history = []
@@ -21,15 +20,12 @@ class ai_chatbot:
         self.middle_frame.pack(side=tk.RIGHT, fill=tk.BOTH, expand=True, padx=10, pady=10)
 
         self.chat_width_per = 0.2 * self.screen_width
-                # Header at 30% of screen width
         self.header = ctk.CTkLabel(self.window,
                                    text="AI ChatBot\n\nHistory",
                                    font=("Arial", 15),
                                    anchor="center")
         self.header.pack(pady = 10, padx = 20)
-    #    self.header.place(relx=0.2, rely=0.05, relwidth=0.2)
 
-        # Chat area at 70% of screen width
         self.chats = ctk.CTkLabel(master=self.middle_frame,
                                   text=" Chat History",
                                   justify="left",
@@ -73,7 +69,6 @@ class ai_chatbot:
         if answer := self.data.get(join):
             self.chat_history.append(f" you: {self.load_user_input}")
             self.chat_history.append(f" Bot: {answer}\n")
-        #    print(self.chat_history)
             self.print_chat_history= '\n'.join(self.chat_history)
             self.chats.configure(text = self.print_chat_history)
             if answer == 'bye':
@@ -82,7 +77,6 @@ class ai_chatbot:
         else:
             self.chat_history.append(f" you: {self.load_user_input}")
             self.chat_history.append(f" Bot: I don't understand\n")
-        #    print(self.chat_history)
             self.print_chat_history= '\n'.join(self.chat_history)
             self.chats.configure(text = self.print_chat_history)
 
