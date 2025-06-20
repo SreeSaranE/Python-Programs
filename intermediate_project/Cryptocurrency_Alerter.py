@@ -17,15 +17,26 @@ class Coin:
 def get_coins() -> list[Coin]:
     coin_list = []
     payload: dict = {'vs_currency': 'inr', 'order': 'market_cap_desc'}
-    data = requests.get(BASE_URL, params=payload)
-    json: dict = data.json()
+    try:
+        response = requests.get(BASE_URL, params=payload)
+        response.raise_for_status()
+        data = response.json()
 
-    for item in json:
-        current_coin: Coin = Coin(name=item.get('name'),
-                                  symbol=item.get('symbol'),
-                                  current_price=item.get('current_price'))
-        
-        coin_list.append(current_coin)
+        if isinstance(data, list):
+            for item in data:
+                current_coin = Coin(
+                    name=item.get('name'),
+                    symbol=item.get('symbol'),
+                    current_price=item.get('current_price')
+                )
+                coin_list.append(current_coin)
+        else:
+            print("Unexpected API response:", data)
+
+    except requests.RequestException as e:
+        print("Request failed:", e)
+    except ValueError as e:
+        print("JSON decode error:", e)
 
     return coin_list
 
@@ -41,12 +52,9 @@ if __name__ == '__main__':
     while True:
         coin_list = []
         coins = get_coins()
-        t = time.localtime()
-        current_time = time.strftime("%H:%M:%S", t)
+        current_time = time.strftime("%H:%M:%S", time.localtime())
         print("Current Time =", current_time)
         alert('btc', bottom=9000000, top=10000000, coins_list= coins)
-        time.sleep(2)
-        coin_list.clear()
+        alert('eth', bottom=9000000, top=10000000, coins_list= coins)
         print("----")
-#        for coin in coins:
-#            print(coin)
+        time.sleep(10)
